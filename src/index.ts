@@ -18,4 +18,4 @@ const peco = async (data: string, prompt = 'find'): Promise<string> => {
   });
 };
 
-// export default peco;
+export default peco;
