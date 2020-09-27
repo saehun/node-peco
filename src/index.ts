@@ -1,7 +1,7 @@
 import { spawn } from 'child_process';
 
-const handleError = (option: Option, reject: (reason?: any) => void) => (error: Error): void => {
-  if (option.reject) {
+const handleError = (reject: (reason?: any) => void, option?: Option) => (error: Error): void => {
+  if (option?.reject) {
     reject(error);
   } else {
     if (error.message.includes('ENOENT')) {
@@ -26,11 +26,11 @@ interface Option {
   layout?: 'bottom-up' | 'top-down';
 }
 
-const getPath = (option: Option): string => {
-  return option.path ?? 'peco';
+const getPath = (option?: Option): string => {
+  return option?.path ?? 'peco';
 };
 
-const peco = async (data: string, option: Option): Promise<string[]> => {
+const peco = async (data: string, option?: Option): Promise<string[]> => {
   return new Promise((resolve, reject) => {
     const peco = spawn('peco', ['--layout=bottom-up', `--prompt=[find]`]);
 
@@ -43,8 +43,8 @@ const peco = async (data: string, option: Option): Promise<string[]> => {
       resolve(selected.trim().split('\n'));
     });
 
-    peco.on('error', handleError(option, reject));
-    peco.stdin.on('error', handleError(option, reject));
+    peco.on('error', handleError(reject, option));
+    peco.stdin.on('error', handleError(reject, option));
 
     peco.stdin.write(data);
     peco.stdin.end();
