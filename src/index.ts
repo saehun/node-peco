@@ -5,6 +5,7 @@ const handleError = (reject: (reason?: any) => void, option?: Option) => (error:
     reject(error);
   } else {
     if (error.message.includes('ENOENT')) {
+      // when 'peco' binary is not in path
       console.error(`command not found: peco\ninstall peco from https://github.com/peco/peco`);
     } else {
       console.error(error);
