@@ -14,7 +14,7 @@ const handleError = (reject: (reason?: any) => void, option?: Option) => (error:
   }
 };
 
-interface Option {
+export interface Option {
   path?: string;
   reject?: boolean;
   query?: string;
