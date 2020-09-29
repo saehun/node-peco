@@ -1,6 +1,6 @@
 import { spawn } from 'child_process';
 
-const handleError = (reject: (reason?: any) => void, option?: PecoOption) => (error: Error): void => {
+const handleError = (reject: (reason?: any) => void, option: PecoOption) => (error: Error): void => {
   if (option?.reject) {
     reject(error);
   } else {
@@ -14,8 +14,8 @@ const handleError = (reject: (reason?: any) => void, option?: PecoOption) => (er
   }
 };
 
-const getPath = (option?: PecoOption): string => {
-  return option?.path ?? 'peco';
+const getPath = (option: PecoOption): string => {
+  return option.path ?? 'peco';
 };
 
 export interface PecoOption {
@@ -31,7 +31,7 @@ export interface PecoOption {
   layout?: 'bottom-up' | 'top-down';
 }
 
-export const peco = async (data: string, option?: PecoOption): Promise<string[]> => {
+export const peco = async (data: string, option: PecoOption = {}): Promise<string[]> => {
   return new Promise((resolve, reject) => {
     const peco = spawn('peco', ['--layout=bottom-up', `--prompt=[find]`]);
 
