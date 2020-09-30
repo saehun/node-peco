@@ -18,6 +18,15 @@ const getPath = (option: PecoOption): string => {
   return option.path ?? 'peco';
 };
 
+const optionParser = (key: keyof PecoOption) => (option: PecoOption): string => {
+  const value = option[key];
+  if (value) {
+    return '--' + key + '=' + String(value);
+  } else {
+    return '';
+  }
+};
+
 export interface PecoOption {
   path?: string;
   reject?: boolean;
