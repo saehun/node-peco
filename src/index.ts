@@ -18,7 +18,7 @@ const getPath = (option: PecoOption): string => {
   return option.path ?? 'peco';
 };
 
-const optionParser = (key: keyof PecoOption) => (option: PecoOption): string => {
+const optionParser = (key: keyof PecoOption, cmdKey: string = key) => (option: PecoOption): string => {
   const value = option[key];
   if (value) {
     return '--' + key + '=' + String(value);
@@ -26,6 +26,15 @@ const optionParser = (key: keyof PecoOption) => (option: PecoOption): string => 
     return '';
   }
 };
+
+const query = optionParser('query');
+const promt = optionParser('prompt');
+const selectOne = optionParser('selectOne', 'select-1');
+const printQuery = optionParser('printQuery', 'print-query');
+const initialIndex = optionParser('initialIndex', 'initial-index');
+const initialFilter = optionParser('initialFilter', 'initial-filter');
+const onCancel = optionParser('onCancel', 'on-cancel');
+const layout = optionParser('layout');
 
 export interface PecoOption {
   path?: string;
