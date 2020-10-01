@@ -27,14 +27,19 @@ const optionParser = (key: keyof PecoOption, cmdKey: string = key) => (option: P
   }
 };
 
-const query = optionParser('query');
-const promt = optionParser('prompt');
-const selectOne = optionParser('selectOne', 'select-1');
-const printQuery = optionParser('printQuery', 'print-query');
-const initialIndex = optionParser('initialIndex', 'initial-index');
-const initialFilter = optionParser('initialFilter', 'initial-filter');
-const onCancel = optionParser('onCancel', 'on-cancel');
-const layout = optionParser('layout');
+const generateOption = (option: PecoOption): string[] =>
+  [
+    optionParser('query'),
+    optionParser('prompt'),
+    optionParser('selectOne', 'select-1'),
+    optionParser('printQuery', 'print-query'),
+    optionParser('initialIndex', 'initial-index'),
+    optionParser('initialFilter', 'initial-filter'),
+    optionParser('onCancel', 'on-cancel'),
+    optionParser('layout'),
+  ]
+    .map(parse => parse(option))
+    .filter(s => s.length);
 
 export interface PecoOption {
   path?: string;
@@ -51,7 +56,7 @@ export interface PecoOption {
 
 export const peco = async (data: string, option: PecoOption = {}): Promise<string[]> => {
   return new Promise((resolve, reject) => {
-    const peco = spawn('peco', ['--layout=bottom-up', `--prompt=[find]`]);
+    const peco = spawn(getPath(option), ['--layout=bottom-up', `--prompt=[find]`]);
 
     let selected = '';
     peco.stdout.on('data', data => {
