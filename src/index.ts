@@ -27,7 +27,7 @@ const optionParser = (key: keyof PecoOption, cmdKey: string = key) => (option: P
   }
 };
 
-const generateOption = (option: PecoOption): string[] =>
+const getOptions = (option: PecoOption): string[] =>
   [
     optionParser('query'),
     optionParser('prompt'),
@@ -56,7 +56,7 @@ export interface PecoOption {
 
 export const peco = async (data: string, option: PecoOption = {}): Promise<string[]> => {
   return new Promise((resolve, reject) => {
-    const peco = spawn(getPath(option), ['--layout=bottom-up', `--prompt=[find]`]);
+    const peco = spawn(getPath(option), getOptions(option));
 
     let selected = '';
     peco.stdout.on('data', data => {
