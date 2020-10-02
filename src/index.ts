@@ -1,7 +1,7 @@
 import { spawn } from 'child_process';
 
 const handleError = (reject: (reason?: any) => void, option: PecoOption) => (error: Error): void => {
-  if (option?.reject) {
+  if (option.reject) {
     reject(error);
   } else {
     if (error.message.includes('ENOENT')) {
@@ -21,7 +21,7 @@ const getPath = (option: PecoOption): string => {
 const optionParser = (key: keyof PecoOption, cmdKey: string = key) => (option: PecoOption): string => {
   const value = option[key];
   if (value) {
-    return '--' + key + '=' + String(value);
+    return '--' + cmdKey + '=' + String(value);
   } else {
     return '';
   }
