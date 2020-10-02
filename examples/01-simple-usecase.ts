@@ -1,8 +1,11 @@
-import peco from '../src';
+import { peco } from '../src';
 
 const data = ['option1', 'option2', 'option3'].join('\n');
 
+/**
+ * Simple usecase
+ */
 (async (): Promise<void> => {
-  const selected = await peco(data, { reject: false });
+  const selected = await peco(data);
   console.log(selected);
 })();
