@@ -10,6 +10,7 @@ const data = ['option1', 'option2', 'option3'].join('\n');
     layout: 'bottom-up',
     prompt: 'find',
     query: 'option1',
+    selectionPrefix: '*',
   });
   console.log(selected);
 })();
