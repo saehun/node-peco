@@ -31,10 +31,13 @@ const getOptions = (option: PecoOption): string[] =>
   [
     optionParser('query'),
     optionParser('prompt'),
+    optionParser('rcfile'),
+    optionParser('bufferSize', 'buffer-size'),
     optionParser('selectOne', 'select-1'),
     optionParser('printQuery', 'print-query'),
     optionParser('initialIndex', 'initial-index'),
     optionParser('initialFilter', 'initial-filter'),
+    optionParser('selectionPrefix', 'selection-prefix'),
     optionParser('onCancel', 'on-cancel'),
     optionParser('layout'),
   ]
@@ -44,11 +47,15 @@ const getOptions = (option: PecoOption): string[] =>
 export interface PecoOption {
   path?: string;
   reject?: boolean;
+  exec?: string;
   query?: string;
   prompt?: string;
+  rcfile?: string;
+  bufferSize?: number;
   selectOne?: boolean;
   printQuery?: boolean;
   initialIndex?: number;
+  selectionPrefix?: string;
   initialFilter?: 'IgnoreCase' | 'CaseSensitive' | 'SmartCase' | 'Regexp' | 'Fuzzy';
   onCancel?: 'success' | 'error';
   layout?: 'bottom-up' | 'top-down';
