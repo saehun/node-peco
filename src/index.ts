@@ -14,8 +14,8 @@ const handleError = (reject: (reason?: any) => void, option: PecoOption) => (err
   }
 };
 
-const getPath = (option: PecoOption): string => {
-  return option.path ?? 'peco';
+const getBinary = (option: PecoOption): string => {
+  return option.bin ?? 'peco';
 };
 
 const optionParser = (key: keyof PecoOption, cmdKey: string = key) => (option: PecoOption): string => {
@@ -45,7 +45,7 @@ const getOptions = (option: PecoOption): string[] =>
     .filter(s => s.length);
 
 export interface PecoOption {
-  path?: string;
+  bin?: string;
   reject?: boolean;
   exec?: string;
   query?: string;
@@ -63,7 +63,7 @@ export interface PecoOption {
 
 export const peco = async (data: string, option: PecoOption = {}): Promise<string[]> => {
   return new Promise((resolve, reject) => {
-    const peco = spawn(getPath(option), getOptions(option));
+    const peco = spawn(getBinary(option), getOptions(option));
 
     let selected = '';
     peco.stdout.on('data', data => {
