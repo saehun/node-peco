@@ -61,7 +61,7 @@ export interface PecoOption {
   layout?: 'bottom-up' | 'top-down';
 }
 
-export const peco = async (data: string, option: PecoOption = {}): Promise<string[]> => {
+export const peco = async (data: string, option: PecoOption = { reject: true }): Promise<string[]> => {
   return new Promise((resolve, reject) => {
     const peco = spawn(getBinary(option), getOptions(option));
 
