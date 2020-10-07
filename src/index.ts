@@ -14,6 +14,12 @@ const handleError = (reject: (reason?: any) => void, option: PecoOption) => (err
   }
 };
 
+const handleCancel = (option: PecoOption, selected: string): void => {
+  if (option.onCancel === 'error' && selected === '') {
+    throw new Error('canceled');
+  }
+};
+
 const getBinary = (option: PecoOption): string => {
   return option.bin ?? 'peco';
 };
@@ -38,7 +44,6 @@ const getOptions = (option: PecoOption): string[] =>
     optionParser('initialIndex', 'initial-index'),
     optionParser('initialFilter', 'initial-filter'),
     optionParser('selectionPrefix', 'selection-prefix'),
-    optionParser('onCancel', 'on-cancel'),
     optionParser('layout'),
   ]
     .map(parse => parse(option))
@@ -71,6 +76,7 @@ export const peco = async (data: string, option: PecoOption = { reject: true }):
     });
 
     peco.stdout.on('end', () => {
+      handleCancel(option, selected);
       resolve(selected.trim().split('\n'));
     });
 
