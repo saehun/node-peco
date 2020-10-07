@@ -66,7 +66,7 @@ export interface PecoOption {
   layout?: 'bottom-up' | 'top-down';
 }
 
-export const peco = async (data: string, option: PecoOption = { reject: true }): Promise<string[]> => {
+export const peco = async (candidates: string[], option: PecoOption = { reject: true }): Promise<string[]> => {
   return new Promise((resolve, reject) => {
     const peco = spawn(getBinary(option), getOptions(option));
 
@@ -83,7 +83,7 @@ export const peco = async (data: string, option: PecoOption = { reject: true }):
     peco.on('error', handleError(reject, option));
     peco.stdin.on('error', handleError(reject, option));
 
-    peco.stdin.write(data);
+    peco.stdin.write(candidates.join('\n'));
     peco.stdin.end();
   });
 };
