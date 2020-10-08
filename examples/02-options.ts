@@ -1,6 +1,6 @@
 import { peco } from '../src';
 
-const data = ['option1', 'option2', 'option3'].join('\n');
+const data = ['option1', 'option2', 'option3'];
 
 /**
  * Simple usecase

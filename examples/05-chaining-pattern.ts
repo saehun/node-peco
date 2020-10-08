@@ -7,8 +7,8 @@ const data = ['option1', 'option2', 'option3'];
  */
 (async (): Promise<void> => {
   const selected = await peco(data, {
-    bin: 'peco2', // throw ENOENT error
-    reject: false, // process exit option
+    onCancel: 'error', // if press ctrl-c, reject error
+    selectOne: true,
   });
   console.log(selected);
 })();
