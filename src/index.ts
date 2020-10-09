@@ -1,7 +1,7 @@
 import { spawn } from 'child_process';
 
 const handleError = (reject: (reason?: any) => void, option: PecoOption) => (error: Error): void => {
-  if (option.reject) {
+  if (option.onError === 'reject') {
     reject(error);
   } else {
     if (error.message.includes('ENOENT')) {
@@ -11,12 +11,6 @@ const handleError = (reject: (reason?: any) => void, option: PecoOption) => (err
       console.error(error);
     }
     process.exit(1);
-  }
-};
-
-const handleCancel = (option: PecoOption, selected: string): void => {
-  if (option.onCancel === 'error' && selected === '') {
-    throw new Error('canceled');
   }
 };
 
@@ -51,7 +45,9 @@ const getOptions = (option: PecoOption): string[] =>
 
 export interface PecoOption {
   bin?: string;
-  reject?: boolean;
+  onCancel?: 'reject' | 'skip';
+  onError?: 'reject' | 'exit';
+
   exec?: string;
   query?: string;
   prompt?: string;
@@ -62,11 +58,13 @@ export interface PecoOption {
   initialIndex?: number;
   selectionPrefix?: string;
   initialFilter?: 'IgnoreCase' | 'CaseSensitive' | 'SmartCase' | 'Regexp' | 'Fuzzy';
-  onCancel?: 'success' | 'error';
   layout?: 'bottom-up' | 'top-down';
 }
 
-export const peco = async (candidates: string[], option: PecoOption = { reject: true }): Promise<string[]> => {
+export const peco = async (
+  candidates: string[],
+  option: PecoOption = { onCancel: 'skip', onError: 'reject' }
+): Promise<string[]> => {
   return new Promise((resolve, reject) => {
     const peco = spawn(getBinary(option), getOptions(option));
 
@@ -76,8 +74,16 @@ export const peco = async (candidates: string[], option: PecoOption = { reject: 
     });
 
     peco.stdout.on('end', () => {
-      handleCancel(option, selected);
-      resolve(selected.trim().split('\n'));
+      const result = selected
+        .trim()
+        .split('\n')
+        .filter(s => s.length);
+
+      if (result.length === 0 && option.onCancel === 'reject') {
+        reject(new Error('canceled'));
+      }
+
+      resolve(result);
     });
 
     peco.on('error', handleError(reject, option));

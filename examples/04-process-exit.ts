@@ -6,9 +6,8 @@ const data = ['option1', 'option2', 'option3'];
  * Simple usecase
  */
 (async (): Promise<void> => {
-  const selected = await peco(data, {
-    bin: 'peco2', // throw ENOENT error
-    reject: false, // process exit option
+  await peco(data, {
+    bin: 'peco2', // throw ENOENT error and exit
+    onError: 'exit',
   });
-  console.log(selected);
 })();
