@@ -11,5 +11,8 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "lib": [ "dom", "esnext" ]
-  }
+  },
+  "include": [
+    "src/**/*"
+  ]
 }
