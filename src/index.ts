@@ -44,10 +44,12 @@ const getOptions = (option: PecoOption): string[] =>
     .filter(s => s.length);
 
 export interface PecoOption {
+  // javascript options
   bin?: string;
   onCancel?: 'reject' | 'skip';
   onError?: 'reject' | 'exit';
 
+  // command line options
   exec?: string;
   query?: string;
   prompt?: string;
