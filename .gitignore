@@ -16,3 +16,5 @@ package-lock.json
 # Ignore yarn error log
 yarn-error.log
 
+# Ignore secrets
+.npmrc
