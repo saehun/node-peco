@@ -1,9 +1,10 @@
 {
   "name": "node-peco",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Peco (Simplistic interactive filtering tool) NodeJS Binding",
   "license": "MIT",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": "minidonut/node-peco",
   "scripts": {
     "build": "tsc",
