@@ -58,6 +58,7 @@ jobs:
 
       - name: Bump git version
         run: |
+          git checkout -b master
           git add package.json
           git commit -m 'Bump version'
           git push origin master
