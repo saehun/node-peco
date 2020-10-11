@@ -52,10 +52,11 @@ jobs:
         run:  |
           echo '//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}' >> .npmrc
           TAG=$(git describe --tags)
-          npm version $TAG --
+          npm config set git-tag-version false
+          npm version $TAG
           npm publish
 
-      - name: commit
+      - name: Bump git version
         run: |
           git add package.json
           git commit -m 'Bump version'
