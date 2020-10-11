@@ -46,7 +46,7 @@ jobs:
       - name: npm publish
         run:  |
           echo '//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}' >> .npmrc
-          npm version from-git
+          npm version from-git --tags
           npm publish
 
       - name: commit
