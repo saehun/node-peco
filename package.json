@@ -32,5 +32,15 @@
     "ts-jest": "^26.2.0",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.2"
-  }
+  },
+  "keywords": [
+    "cli",
+    "command-line",
+    "command-line-tool",
+    "fuzzy",
+    "fuzzy-search",
+    "prompt",
+    "interactive",
+    "peco"
+  ]
 }
