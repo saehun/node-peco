@@ -1,6 +1,6 @@
 {
   "name": "node-peco",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Peco (Simplistic interactive filtering tool) NodeJS Binding",
   "license": "MIT",
   "main": "dist/index.js",
@@ -36,11 +36,17 @@
   "jest": {
     "coverageDirectory": "./coverage/",
     "collectCoverage": false,
-    "moduleFileExtensions": ["ts", "js", "json"],
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json"
+    ],
     "transform": {
       "^.+\\.ts$": "ts-jest"
     },
-    "testMatch": ["**/tests/**/*.test.(ts|js)"],
+    "testMatch": [
+      "**/tests/**/*.test.(ts|js)"
+    ],
     "testEnvironment": "node"
   },
   "keywords": [
