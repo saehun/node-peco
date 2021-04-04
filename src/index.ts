@@ -18,7 +18,7 @@ const getBinary = (option: PecoOption): string => {
   return option.bin ?? 'peco';
 };
 
-const optionParser = (key: keyof PecoOption, cmdKey: string = key) => (option: PecoOption): string => {
+const optionBuilder = (key: keyof PecoOption, cmdKey: string = key) => (option: PecoOption): string => {
   const value = option[key];
   if (value) {
     return '--' + cmdKey + '=' + String(value);
@@ -29,27 +29,27 @@ const optionParser = (key: keyof PecoOption, cmdKey: string = key) => (option: P
 
 const getOptions = (option: PecoOption): string[] =>
   [
-    optionParser('query'),
-    optionParser('prompt'),
-    optionParser('rcfile'),
-    optionParser('bufferSize', 'buffer-size'),
-    optionParser('selectOne', 'select-1'),
-    optionParser('printQuery', 'print-query'),
-    optionParser('initialIndex', 'initial-index'),
-    optionParser('initialFilter', 'initial-filter'),
-    optionParser('selectionPrefix', 'selection-prefix'),
-    optionParser('layout'),
+    optionBuilder('query'),
+    optionBuilder('prompt'),
+    optionBuilder('rcfile'),
+    optionBuilder('bufferSize', 'buffer-size'),
+    optionBuilder('selectOne', 'select-1'),
+    optionBuilder('printQuery', 'print-query'),
+    optionBuilder('initialIndex', 'initial-index'),
+    optionBuilder('initialFilter', 'initial-filter'),
+    optionBuilder('selectionPrefix', 'selection-prefix'),
+    optionBuilder('layout'),
   ]
-    .map(parse => parse(option))
+    .map(build => build(option))
     .filter(s => s.length);
 
 export interface PecoOption {
-  // javascript options
+  /** javascript options */
   bin?: string;
   onCancel?: 'reject' | 'skip';
   onError?: 'reject' | 'exit';
 
-  // command line options
+  /** command line options */
   exec?: string;
   query?: string;
   prompt?: string;
@@ -63,6 +63,12 @@ export interface PecoOption {
   layout?: 'bottom-up' | 'top-down';
 }
 
+/**
+ * Invoke peco prompt as promise, resolve selected items.
+ *
+ * @params candidates - Candidate items.
+ * @params option - `peco` commandline option and promise actions.
+ */
 export const peco = async (
   candidates: string[],
   option: PecoOption = { onCancel: 'skip', onError: 'reject' }
