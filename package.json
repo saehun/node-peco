@@ -1,6 +1,6 @@
 {
   "name": "node-peco",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Peco (Simplistic interactive filtering tool) NodeJS Binding",
   "license": "MIT",
   "main": "dist/index.js",
